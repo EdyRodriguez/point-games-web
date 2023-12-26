@@ -10,8 +10,8 @@ function App() {
   return (
     <>
     <Header />
-    <Hero />
     <Games />
+    <Hero />
     <Footer />
     </>
   )
