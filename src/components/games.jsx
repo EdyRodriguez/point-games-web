@@ -30,11 +30,11 @@ function Games(){
     return(
         <>
             <section className="text-gray-400 bg-gray-900 body-font">
-  <div className="container px-5 py-24 mx-auto">
+  <div className="container px-5 py-24 mx-auto sm: px-0">
     <div className="flex flex-col text-center w-full mb-20">
       <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-white">Lista De Juegos</h1>
     </div>
-    <div className="lg:w-2/3 w-full mx-auto overflow-auto">
+    <div className="lg:w-2/3 w-full mx-auto overflow-auto sm: w-full ">
       <table className="table-auto w-full text-center whitespace-no-wrap">
         <thead>
           <tr>
@@ -55,14 +55,14 @@ function Games(){
           </tbody>
         )) : <></>}
       </table>
-      <nav className="flex flex-wrap items-center justify-center mx-auto py-8 lg:w-2/3 w-full  ">
-        <ul className="flex flex-wrap gap-2">
-        <button onClick={() => setPage(page -1 < 1 ? 0 : page-1)} className="mx-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-600 rounded-md">⏮️</button>
+      <nav className="flex flex-wrap items-center justify-center mx-auto py-8 lg:w-2/3 w-full   ">
+        <ul className="flex flex-wrap gap-2 sm:w-full overflow-hidden gap-0">
+        <button onClick={() => setPage(page -1 < 1 ? page : page-1)} className="mx-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-600 rounded-md sm: hidden">⏮️</button>
 
         {numbers.map((number) => (
-          <button key={number} onClick={() => setPage(number)} className={`mx-1 px-4 py-2 bg-gray-800 text-white hover:bg-gray-600 rounded-md ${number === page ? 'active:bg-gray-500' : ''}`}>{number}</button>
+          <button key={number} onClick={() => setPage(number)} className={`mx-1 px-4 py-2 bg-gray-800 text-white hover:bg-gray-600 rounded-md ${number === page ? 'active: bg-gray-700 underline ' : ''}`}>{number}</button>
         ))}
-        <button onClick={() => setPage(page+1 > numbers.length ? page : page+1)} className="mx-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-600 rounded-md">⏭️</button>
+        <button onClick={() => setPage(page+1 > numbers.length ? page : page+1)} className="mx-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-600 rounded-md sm: hidden">⏭️</button>
           </ul>
 
       </nav>
