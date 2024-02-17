@@ -108,7 +108,6 @@ function Games() {
                   className="mx-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-600 rounded-md  max-sm:hidden">
                   ⏮️
                 </button>
-
                 {numbers.map((number) => (
                   <button
                     key={number}
