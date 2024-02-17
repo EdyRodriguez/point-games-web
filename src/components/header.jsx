@@ -61,7 +61,6 @@ function Header() {
 
 
 
-  const client_id = import.meta.env.VITE_WEB_CLIENT_ID;
   return (
     <header className="text-gray-400 bg-twitch-dark body-font text-center">
       <div className="container  mx-auto flex justify-between p-5 flex-col md:flex-row items-center sm:flex-row">
@@ -112,7 +111,7 @@ function Header() {
           <div className="w-1/3 flex justify-end">
             <a
               className="flex w-1/3 gap-2 justify-center content-center inline-block group bg-twitch-purple rounded px-6 py-2.5 text-sm font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg hover:bg-twitch-purple-dark  rounded text-base mt-4 md:mt-0 sm: mt-0"
-              href={`https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${client_id}&redirect_uri=http://localhost:5173&scope=user%3Aread%3Abroadcast`}>
+              href={`https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=0hx7zh667x2lkpmh1v1qzqfcbopym0&redirect_uri=http://localhost:5173&scope=user%3Aread%3Abroadcast`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 translate-y-1"
