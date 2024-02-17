@@ -60,7 +60,7 @@ function Header() {
     window.location.reload();
   };
 
-  useEffect(() =>{
+ useEffect(() =>{
     const url = window.location.href;
     if(url.includes("localhost")){
       console.log("si es local");
@@ -71,7 +71,6 @@ function Header() {
     }
   },[]);
 
-  const client_id = import.meta.env.VITE_WEB_CLIENT_ID;
   return (
     <header className="text-gray-400 bg-twitch-dark body-font text-center">
       <div className="container  mx-auto flex justify-between p-5 flex-col md:flex-row items-center sm:flex-row">
