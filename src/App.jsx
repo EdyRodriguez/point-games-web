@@ -7,7 +7,7 @@ import Header from "./components/header";
 import TokenValidation from "./components/tokenValidation";
 import Transactions from "./components/transactions";
 import Modal from "./utils/modal";
-import Purchases from "./components/Purchases";
+import Purchases from "./components/purchases";
 import { Toaster } from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { UserProvider } from "./utils/userProvider";
