@@ -2,24 +2,32 @@ import { useEffect } from "react";
 import apiCalls from "../utils/apiCalls";
 import wolfito from "../assets/wolfito-removebg-preview.png";
 import { useState } from "react";
-import { toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import TokenChange from "./tokenChange";
+import { useUserContext } from "../utils/userContext";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [userName, setUserName] = useState(false);
   const [token, setToken] = useState(0);
   const [redirect_uri, setRedirect_uri] = useState("");
+  const {user, updateUser} = useUserContext();
 
-  function sendToast() {  toast.custom((t) => (
-    <div
-      className={`${
-        t.visible ? "animate-enter" : "animate-leave"
-      } w-1/2 justify-center p-8 bg-twitch-pink shadow-lg rounded-full pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5`}>
-      <button className=" self-end text-2xl font-bold text-white pr-12 " onClick={() => toast.dismiss(t.id)}>X</button>
-      <TokenChange />
-    </div>
-  ));
-    }
+  function sendToast() {
+    toast.custom((t) => (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } w-1/2 justify-center p-8 bg-twitch-pink shadow-lg rounded-full pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5`}>
+        <button
+          className=" self-end text-2xl font-bold text-white pr-12 "
+          onClick={() => toast.dismiss(t.id)}>
+          X
+        </button>
+        <TokenChange />
+      </div>
+    ));
+  }
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.hash);
@@ -30,29 +38,38 @@ function Header() {
     }
   }, []);
 
-
-  useEffect( () => {
-    if(localStorage.getItem("userName")){
+  useEffect(() => {
+    if (localStorage.getItem("userName")) {
       setUserName(localStorage.getItem("userName"));
-      apiCalls.getUserTokens(localStorage.getItem("userName")).then((data) => {
-        setToken(data.tokens);
-        if(data.tokens > 0){
-          sendToast();
-        }
-      });
-    }else{
-    if (localStorage.getItem("accessToken")) {
-      const token = localStorage.getItem("accessToken");
-      apiCalls.validateUser(token).then((data) => {
-        setUserName(data.login);
-        localStorage.setItem("userName", data.login);
-        apiCalls.getUserTokens(data.login).then((data) => {
+      if(localStorage.getItem("userTokenChanged")){
+        apiCalls.getUserTokens(localStorage.getItem("userName")).then((data) => {
           setToken(data.tokens);
+          updateUser({'userName':localStorage.getItem("userName"), 'userToken': localStorage.getItem("accessToken"),  'tokens': data.tokens});
         });
-      });
+        localStorage.setItem("userTokenChanged", false);
+        }
+         if (user.tokens !='' && user.tokens == 0) {
+           sendToast();
+          }
+    } else {
+      if (localStorage.getItem("accessToken")) {
+        const userToken = localStorage.getItem("accessToken");
+        apiCalls.validateUser(userToken).then((data) => {
+          setUserName(data.login);
+          localStorage.setItem("userName", data.login);
+          localStorage.setItem("userToken", data.userToken);
+          localStorage.setItem("userTokenChanged", true);
+          if(user.tokens == '' || user.tokens == 0){
+          apiCalls.getUserTokens(data.login).then((data) => {
+            setToken(data.tokens);
+            updateUser({'userName':data.login, 'userToken': userToken,  'tokens': data.tokens});
+          });
+          localStorage.setItem("userTokenChanged", false);
+          }
+        });
+      }
     }
-  }
-  }, []);
+  },[]);
 
   const handleOnLogOut = () => {
     localStorage.removeItem("accessToken");
@@ -60,16 +77,14 @@ function Header() {
     window.location.reload();
   };
 
- useEffect(() =>{
+  useEffect(() => {
     const url = window.location.href;
-    if(url.includes("localhost")){
-      console.log("si es local");
-     setRedirect_uri("http://localhost:5173");
+    if (url.includes("localhost")) {
+      setRedirect_uri("http://localhost:5173");
+    } else {
+      setRedirect_uri("https://point-games-web.vercel.app/");
     }
-    else{
-      setRedirect_uri("https://point-games-web.vercel.app/")
-    }
-  },[]);
+  }, []);
 
   const client_id = import.meta.env.VITE_WEB_CLIENT_ID;
 
@@ -84,23 +99,30 @@ function Header() {
               alt="Edy icon"
             />
           </a>
-            <span className=" text-xl">EdyConY</span>
+          <span className=" text-xl">EdyConY</span>
         </div>
 
         <nav className="md:mx-auto w-1/3 flex flex-wrap gap-4 items-center text-base justify-center">
-          <a href="/" className=" text-xl hover:text-white">
+          <Link to="/" className=" text-xl hover:text-white">
             Juegos
-          </a>
+          </Link>
           {userName ? (
-            <a href="/tokenValidation" className=" text-xl hover:text-white">
-              Tokens
-            </a>
+              <Link to="/tokenValidation" className=" text-xl hover:text-white">
+                Tokens
+              </Link>
           ) : (
             <></>
           )}
-          <a href="/transactions"  className=" text-xl hover:text-white">
+          {userName ? (
+              <Link to="/purchases" className=" text-xl hover:text-white">
+              Mis Compras
+            </Link>
+          ) : (
+            <></>
+          )}
+          <Link to="/transactions" className=" text-xl hover:text-white">
             Transacciones
-          </a>
+          </Link>
         </nav>
         {userName ? (
           <div className="flex w-1/3 gap-4 justify-end items-center">
@@ -142,7 +164,6 @@ function Header() {
       </div>
     </header>
   );
-
 }
 
 export default Header;

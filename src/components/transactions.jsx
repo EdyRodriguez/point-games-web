@@ -11,7 +11,7 @@ function Transactions() {
   }, []);
 
   return (
-    <section className="mx-auto flex flex-col gap-6 justify-center items-center text-center text-white py-12 bg-gray-900 ">
+    <section className="mx-auto flex flex-col gap-6 justify-center items-center min-h-[80vh]  text-center text-white py-12 bg-gray-900 ">
       <div className="w-full flex flex-col justify-center align-center gap-8">
         <h1 className="sm:text-3xl text-4xl font-bold ">Transactions</h1>
         <table className="w-2/3 mx-auto bg-gray-700 ">

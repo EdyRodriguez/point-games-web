@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import apiCalls from "../utils/apiCalls";
 import toast from "react-hot-toast";
+import { useUserContext } from "../utils/userContext";
 
 function TokenChange() {
   const [userName, setUserName] = useState("");
+  const { user, updateUser } = useUserContext();
   useEffect(() => {
     setUserName(localStorage.getItem("userName"));
   }, []);
@@ -16,6 +18,8 @@ function TokenChange() {
             localStorage.setItem("gameName", data.nombre);
             localStorage.setItem("gameImage", data.img);
             localStorage.setItem("gameKey", data.key);
+            localStorage.setItem("userTokenChanged", true);
+            updateUser({ userName: userName, userToken: user.userToken, tokens: user.tokens - 1 });
             window.location.replace("/");
         } else {
           toast.error("Error al validar el token");
