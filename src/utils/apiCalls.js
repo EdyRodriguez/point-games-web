@@ -1,15 +1,17 @@
 import axios from 'axios';
-
+const API_KEY = import.meta.env.VITE_API_KEY;
+const userToken = localStorage.getItem('userToken');
 function getGames() {
-    return axios.get('https://point-games-api.vercel.app/games/getGames', {
+    return axios.get('https://point-games-api.vercel.app/games/getGames',{
         headers: {
             'Content-Type': 'application/json',
+            "apikey": API_KEY
         }
     })
     .then(response => {
         return response.data;
     })
-    }
+}
 
 function validateUser(token) {
     return axios.post('https://point-games-api.vercel.app/users/validate', {
@@ -17,6 +19,7 @@ function validateUser(token) {
         }, {
         headers: {
             'Content-Type': 'application/json',
+            "apikey": API_KEY
         },
     })
     .then(response => {
@@ -28,6 +31,7 @@ function getUserTokens(userName) {
     return axios.get(`https://point-games-api.vercel.app/users/getUserTokens?name=${userName}`, {
         headers: {
             'Content-Type': 'application/json',
+            "apikey": API_KEY
         }
     })
     .then(response => {
@@ -42,13 +46,13 @@ function validateToken(token, usuario) {
         }, {
         headers: {
             'Content-Type': 'application/json',
+            "apikey": API_KEY
         },
     })
     .then(response => {
         return response.data;
     })
     .catch(error => {
-        console.log('Error:', error);
         return error;
     }  )
 }
@@ -57,6 +61,7 @@ function getTransactions() {
     return axios.get('https://point-games-api.vercel.app/compras/getTransacciones', {
         headers: {
             'Content-Type': 'application/json',
+            "apikey": API_KEY
         }
     })
     .then(response => {
@@ -73,6 +78,8 @@ function changeToken(usuario){
     }, {
         headers: {
             'Content-Type': 'application/json',
+            "apikey": API_KEY,
+            "Authorization": userToken
         },
     })
     .then(response => {
@@ -80,5 +87,18 @@ function changeToken(usuario){
     })
 }
 
+function getUserGames(usuario){
+    return axios.get(`https://point-games-api.vercel.app/users/getUserGames?usuario=${usuario}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            "apikey": API_KEY,
+            "Authorization": userToken
+        }
+    })
+    .then(response => {
+        return response.data;
+    })
+}
 
-export default { getGames, validateUser, getUserTokens, validateToken, getTransactions, changeToken };
+
+export default { getGames, validateUser, getUserTokens, validateToken, getTransactions, changeToken, getUserGames };

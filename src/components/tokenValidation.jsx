@@ -20,6 +20,8 @@ function TokenValidation() {
         //logica para hacer saltar alerta si el token es valido o no
         if (data.message === "Tokens agregados con exito") {
           toast.success("Successfully Added!");
+          localStorage.setItem("userTokenChanged", true);
+          window.location.replace("/");
           setInputText("");
         } else {
           toast.error("Error al validar el token");

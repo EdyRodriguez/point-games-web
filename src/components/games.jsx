@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import { FaSteam } from "react-icons/fa";
 import canjeado from "../assets/canjeado.png";
 import TokenChange from "./tokenChange";
+import { useUserContext } from "../utils/userContext";
+
 function Games() {
   let [showGames, setShowGames] = useState(false);
+  const {user} = useUserContext();
   let [page, setPage] = useState(1);
   const gamesPerPage = 9;
   const lastIndex = page * gamesPerPage;
@@ -12,6 +15,8 @@ function Games() {
   let [games, setGames] = useState([]);
   let [gamesToShow, setGamesToShow] = useState([]);
   let [numbers, setNumbers] = useState([]);
+
+
   useEffect(() => {
     apiCalls.getGames().then((data) => {
       setGames(data);
@@ -28,6 +33,7 @@ function Games() {
     }
     setNumbers(numbers);
   }, [games]);
+
 
   return (
     <>
@@ -130,10 +136,11 @@ function Games() {
               </ul>
             </nav>
           </div>
+          {user.tokens > 0 ?
           <div
             className={`w-1/2 justify-center mx-auto p-8 bg-twitch-pink shadow-lg rounded-full pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5`}>
             <TokenChange />
-          </div>
+          </div> : <></>}
         </div>
       </section>
     </>
