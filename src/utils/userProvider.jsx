@@ -2,7 +2,7 @@ import { useState } from 'react';
 import UserContext from './userContext'; // Asegúrate de que la ruta sea correcta
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState({ tokens: '', userName: "", userToken: "" });
+    const [user, setUser] = useState({ tokens: '', userName: "", userToken: "", image: ""});
 
     const updateUser = (newUser) => {
         setUser(newUser);

@@ -67,7 +67,7 @@ function Games() {
                       src={game.canjeado ? canjeado : game.img}
                     />
                     <p
-                      className={` px-4 py-2 font-bold -translate-y-44 text-white rounded-full absolute translate-x-2 w-fit ${
+                      className={` px-4 py-2 font-bold md:-translate-y-44 text-white rounded-full absolute translate-x-2 w-fit max-sm:-translate-y-40   ${
                         game.canjeado
                           ? "bg-twitch-pink"
                           : "bg-twitch-purple-dark"
@@ -108,7 +108,7 @@ function Games() {
               )}
             </div>
             <nav className="flex flex-wrap items-center justify-center mx-auto py-8 xl:w-2/3 sm:w-full  ">
-              <ul className="flex flex-wrap gap-2">
+              <ul className="flex flex-wrap md:gap-2">
                 <button
                   onClick={() => setPage(page - 1 < 1 ? page : page - 1)}
                   className="mx-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-600 rounded-md  max-sm:hidden">

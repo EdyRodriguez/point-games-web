@@ -49,27 +49,27 @@ function TokenValidation() {
     </section>
   ) : (
     <section className="mx-auto flex flex-col gap-6 justify-center items-center text-white py-12 bg-gray-900 ">
-      <div className=" text-center font-bold w-1/4 py-8 rounded-3xl bg-twitch-pink md:w-1/3">
-        <h1 className=" sm:text-4xl text-3xl title-font font-bold text-white mb-12">
+      <div className=" text-center font-bold md:w-3/4 xl:w-1/2 py-8 rounded-3xl bg-twitch-pink max-md:w-[80%]">
+        <h1 className=" md:text-4xl max-md:text-3xl title-font font-bold text-white md:mb-12">
           Tienes un token?
         </h1>
-        <h2 className="sm:text-3xl text-2xl font-medium ">Validalo aqui:</h2>
+        <h2 className="md:text-3xl max-md:text-2xl font-medium ">Validalo aqui:</h2>
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <input
             onChange={handleInput}
-            className=" min-w-12 w-3/4  self-center rounded-full py-4 px-2 my-8 text-twitch-dark text-2xl "
+            className=" min-w-12 w-3/4  self-center rounded-xl md:py-4 md:px-2 md:my-8 text-twitch-dark text-2xl max-md:my-4 max-md:text-xl max-md:p-2 hover:bg-gray-300"
             value={inputText}
             type="text"
             name="token"
             id="token"
           />
           <button
-            className="sm:text-xl w-1/4 self-center rounded-full bg-twitch-purple-dark text-xl py-4 px-2 mb-4 hover:bg-twitch-purple"
+            className="md:text-xl md:w-1/4 max-md:w-1/2 max-sm:py-2  self-center rounded-full bg-twitch-purple-dark text-xl md:py-4 md:px-2 md:mb-4 hover:bg-twitch-purple"
             type="submit">
             Validar
           </button>
         </form>
-        <p className="text-center px-4 text-gray-400">
+        <p className="text-center px-4 text-gray-400 max-sm:hidden">
             *Si entraste aqui sin haberte logueado antes o entraste poniendo un usuario aparte del tuyo, no podras validar el token.
         </p>
       </div>

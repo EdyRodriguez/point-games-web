@@ -32,7 +32,7 @@ function TokenChange() {
   return (
     <div className="flex flex-col gap-4 text-center text-white justify-center">
       <div>
-        <h1 className="sm:text-2xl text-3xl font-bold">
+        <h1 className="md:text-2xl font-bold ">
           Hey, parece que tienes tokens? no quiere comprar??
         </h1>
       </div>
