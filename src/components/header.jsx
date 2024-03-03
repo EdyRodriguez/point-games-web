@@ -96,8 +96,8 @@ function Header() {
           </a>
           <span className=" text-xl">EdyConY</span>
         </div>
-        <div className="flex max-md:w-1/2 items-center title-font gap-4 font-medium xl:hidden text-white mb-4 md:mb-0  flex-row justify-end">
-          
+        <div className="flex max-md:w-1/2 items-center title-font gap-4 font-medium xl:hidden text-white  mb-4 md:mb-0  flex-row justify-end">
+
           <UserDropdown />
         </div>
         <nav className="md:mx-auto md:w-1/3 flex flex-wrap gap-4 items-center text-base justify-center max-xl:hidden">

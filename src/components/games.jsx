@@ -37,10 +37,10 @@ function Games() {
 
   return (
     <>
-      <section className="text-gray-400 bg-gray-900 body-font pb-8">
+      <section className="text-gray-400 bg-gray-900 body-font pb-8 max-md:pb-0">
         <div className="container flex flex-col justify-center px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-20">
-            <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-white">
+            <h1 className="max-md:text-4xl text-3xl font-medium title-font mb-2 text-white">
               Lista De Juegos
             </h1>
           </div>
@@ -138,7 +138,7 @@ function Games() {
           </div>
           {user.tokens > 0 ?
           <div
-            className={`w-1/2 justify-center mx-auto p-8 bg-twitch-pink shadow-lg rounded-full pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5`}>
+            className={`max-md:w-full w-1/2 justify-center mx-auto max-md:p-4 p-8 bg-twitch-pink shadow-lg rounded-full  max-md:rounded-2xl pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5`}>
             <TokenChange />
           </div> : <></>}
         </div>
