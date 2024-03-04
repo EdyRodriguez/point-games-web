@@ -20,7 +20,7 @@ export default function Purchases() {
     navigator.clipboard.writeText(text);
     toast.success("Copiado al portapapeles");
     setCopied(true);
-  }
+  };
 
   useEffect(() => {
     if (localStorage.getItem("userToken") && localStorage.getItem("userName")) {
@@ -47,33 +47,48 @@ export default function Purchases() {
               </h2>
             </div>
           ) : (
-            <>
-                {games.map((game, index) => {
-                  return (
-                    <div
-                      className="flex flex-col items-center justify-center align-middle text-xl py-8 gap-4 bg-twitch-purple-dark rounded-3xl"
-                      key={index} >
-                      <h2 className="py-4 font-bold text-2xl">{game.nombre}</h2>
-                      <img className="w-3/4" src={game.img} alt={game.nombre} />
-                      <div  className="py-4 flex items-center bg-gray-700 px-6 rounded-full justify-center">
-                        <input
-                          className=" bg-transparent border-0 w-fit pointer-events-none"
-                          type={showPassword[index] ? "text" : "password"}
-                          value={game.key}></input>
-                        <a className={`px-2 ${showPassword[index] ? " opacity-100 " : " opacity-0"}`} onClick={() => handleCopy(game.key)}> {copied ?  <FaCopy /> : <FaRegCopy /> } </a>
-                        <a onClick={() => handleTogglePassword(index)}>
-                          {showPassword[index] ? (
-                            <FaEye />
-                          ) : (
-                            <FaEyeSlash />
-                          )}
-                        </a>
-                      </div>
-                      <a href={`https://store.steampowered.com/account/registerkey?key=${game.key}`} target="_blank" rel="noreferrer" className="px-4 py-4 flex items-center justify-center mx-auto w-2/3 bg-gray-800 text-xl font-medium text-white rounded-full hover:bg-gray-700" > <FaSteam className="w-7" /> <p> Canjear en Steam </p> </a>
+            <div className="max-md:flex-col flex gap-4">
+              {games.map((game, index) => {
+                return (
+                  <div
+                    className="flex flex-col items-center justify-center align-middle max-md:text-lg text-xl max-md:py-4 py-8 gap-4 bg-twitch-purple-dark rounded-3xl"
+                    key={index}>
+                    <h2 className="max-md:py-0 py-2 font-bold max-md:text-lg text-2xl">
+                      {game.nombre}
+                    </h2>
+                    <img className="w-3/4" src={game.img} alt={game.nombre} />
+                    <div className="max-md:py-2 max-md:w-4/5 py-4 flex items-center bg-gray-700 max-md:px-2 px-6 rounded-full justify-center">
+                      <input
+                        className=" bg-transparent border-0 max-md:w-[90%] w-fit pointer-events-none"
+                        type={showPassword[index] ? "text" : "password"}
+                        value={game.key}></input>
+                      <a
+                      data-testid="copySteamKeyButton"
+                        className={`px-2 ${
+                          showPassword[index] ? " opacity-100 " : " opacity-0"
+                        }`}
+                        onClick={() => handleCopy(game.key)}>
+                        {" "}
+                        {copied ? <FaCopy /> : <FaRegCopy />}{" "}
+                      </a>
+                      <a data-testid="revealSteamKeyButton" onClick={() => handleTogglePassword(index)}>
+                        {showPassword[index] ? <FaEye /> : <FaEyeSlash />}
+                      </a>
                     </div>
-                  );
-                })}
-            </>
+                    <a
+                      href={`https://store.steampowered.com/account/registerkey?key=${game.key}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="max-md:px-2 px-4 max-md:py-2 py-4 flex items-center justify-center mx-auto max-md:w-fit w-2/3 bg-gray-800 max-md:text-base text-xl font-medium text-white rounded-full hover:bg-gray-700"
+                      data-testid="changeSteamKeyButton"
+                      >
+                      {" "}
+                      <FaSteam className="w-7" /> <p> Canjear en Steam </p>{" "}
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
           )}
         </div>
       </section>

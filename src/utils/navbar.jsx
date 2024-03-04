@@ -7,24 +7,32 @@ export default function Navbar() {
 
         return(
                 <>
-                    <Link to="/" className=" text-xl hover:text-white">
+                    <Link to="/" className=" text-xl hover:text-white"
+                    data-testid="home"
+                    >
                         Juegos
                     </Link>
                     {user.userName ? (
-                        <Link to="/tokenValidation" className=" text-xl hover:text-white">
+                        <Link to="/tokenValidation" className=" text-xl hover:text-white"
+                        data-testid="tokensScreen"
+                        >
                             Tokens
                         </Link>
                     ) : (
                         <></>
                     )}
                     {user.userName ? (
-                        <Link to="/purchases" className=" text-xl hover:text-white">
+                        <Link to="/purchases" className=" text-xl hover:text-white"
+                        data-testid="purchasesScreen"
+                        >
                             Mis Compras
                         </Link>
                     ) : (
                         <></>
                     )}
-                    <Link to="/transactions" className=" text-xl hover:text-white">
+                    <Link to="/transactions" className=" text-xl hover:text-white"
+                    data-testid="transactionsScreen"
+                    >
                         Transacciones
                     </Link>
                 </>

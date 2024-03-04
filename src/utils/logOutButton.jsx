@@ -8,7 +8,8 @@ export default function LogOutButton() {
   return (
     <a
       onClick={handleOnLogOut}
-      className="flex md:w-1/3 gap-2 justify-center content-center group bg-gray-800 rounded px-6 py-2.5 text-sm font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg hover:bg-gray-600   md:mt-4 -md:mt-0 ">
+      data-testid="logOutButton"
+      className="flex gap-2 justify-center content-center group bg-gray-800 rounded px-6 py-2.5 text-sm font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg hover:bg-gray-600   md:mt-4 -md:mt-0 ">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="icon icon-tabler icon-tabler-door-exit"

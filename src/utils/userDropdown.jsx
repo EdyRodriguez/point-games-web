@@ -20,9 +20,10 @@ export default function UserDropdown() {
     <>
       <button
         id="dropdownDefaultButton"
+        data-testid="dropdownButton"
         onClick={() => setIsDropDownOpen(!isDropDownOpen)}
         className="flex items-center  focus:outline-none">
-        <span className=" text-twitch-blue text-xl font-bold">
+        <span className=" text-twitch-blue text-xl font-bold lg:hidden">
           {user.userName ? (<><img
             src="https://cdn.freelogovectors.net/wp-content/uploads/2023/05/phantom-logo-freelogovectors.net_.png"
             className="h-12 w-16 text-white rounded-full"
@@ -35,7 +36,7 @@ export default function UserDropdown() {
         </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4 "
+          className="h-4 w-4 lg:-translate-x-4 "
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor">
@@ -49,7 +50,7 @@ export default function UserDropdown() {
       </button>
       <div
         id="dropdown"
-        className={`z-10 top-20 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700  ${
+        className={`z-10 top-20 xl:top-16 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700  ${
           isDropDownOpen ? "absolute" : "hidden"
         }`}>
         {user.userName ? (
@@ -68,7 +69,7 @@ export default function UserDropdown() {
         )}
 
         <nav
-          className="flex flex-col gap-2 py-2 items-start border-none rounded-lg w-full px-2"
+          className="flex flex-col gap-2 py-2 items-start border-none rounded-lg w-full px-2 lg:hidden"
           onClick={() => setIsDropDownOpen(!isDropDownOpen)}>
           <Navbar />
         </nav>

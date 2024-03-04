@@ -91,6 +91,7 @@ function Games() {
                         target="_blank"
                         href={game.link}
                         title={game.nombre}
+                        data-testid="gameSteamLinkButton"
                         rel="noreferrer"
                         className={`flex justify-center mx-auto items-center rounded-full bg-gray-800 w-fit px-4 py-2 text-white ${
                           game.canjeado

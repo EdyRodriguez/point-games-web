@@ -48,7 +48,7 @@ function TokenValidation() {
 
     </section>
   ) : (
-    <section className="mx-auto flex flex-col gap-6 justify-center items-center text-white py-12 bg-gray-900 ">
+    <section className="mx-auto flex flex-col gap-6 justify-center items-center min-h-[50vh] text-white py-12 bg-gray-900 ">
       <div className=" text-center font-bold md:w-3/4 xl:w-1/2 py-8 rounded-3xl bg-twitch-pink max-md:w-[80%]">
         <h1 className=" md:text-4xl max-md:text-3xl title-font font-bold text-white md:mb-12">
           Tienes un token?
@@ -64,6 +64,7 @@ function TokenValidation() {
             id="token"
           />
           <button
+          data-testid="tokenValidationButton"
             className="md:text-xl md:w-1/4 max-md:w-1/2 max-sm:py-2  self-center rounded-full bg-twitch-purple-dark text-xl md:py-4 md:px-2 md:mb-4 hover:bg-twitch-purple"
             type="submit">
             Validar

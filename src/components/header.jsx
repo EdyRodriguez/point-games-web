@@ -7,12 +7,10 @@ import TokenChange from "./tokenChange";
 import { useUserContext } from "../utils/userContext";
 import Navbar from "../utils/navbar";
 import LoginButton from "../utils/loginButton";
-import LogOutButton from "../utils/logOutButton";
 import UserDropdown from "../utils/userDropdown";
 
 function Header() {
   const [userName, setUserName] = useState(false);
-  const [token, setToken] = useState(0);
   const { user, updateUser } = useUserContext();
 
   function sendToast() {
@@ -47,7 +45,6 @@ function Header() {
         apiCalls
           .getUserTokens(localStorage.getItem("userName"))
           .then((data) => {
-            setToken(data.tokens);
             updateUser({
               userName: localStorage.getItem("userName"),
               userToken: localStorage.getItem("accessToken"),
@@ -69,7 +66,6 @@ function Header() {
           localStorage.setItem("userTokenChanged", true);
           if (user.tokens == "" || user.tokens == 0) {
             apiCalls.getUserTokens(data.login).then((data) => {
-              setToken(data.tokens);
               updateUser({
                 userName: data.login,
                 userToken: userToken,
@@ -108,13 +104,7 @@ function Header() {
             <span className="flex text-white text-xl  font-bold">
               Bienvenido: <p className=" text-twitch-blue px-2"> {userName}</p>
             </span>
-            <span className="text-center">
-              Tienes:{" "}
-              <p>
-                {token} token{token > 1 ? "s" : ""}{" "}
-              </p>
-            </span>
-            <LogOutButton />
+            <UserDropdown />
           </div>
         ) : (
           <div className="md:w-1/3 flex md:justify-end -md:justify-center max-xl:hidden">

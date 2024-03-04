@@ -39,6 +39,7 @@ function TokenChange() {
       <div className="flex justify-around align-middle w-full  border-gray-200">
         <button
           className="max-md:text-medium text-xl max-md:text-lg font-bold self-center rounded-full bg-twitch-purple-dark max-md:py-2 py-2 max-md:px-6 px-6 hover:bg-twitch-purple"
+          data-testid="tokenChangeButton"
           onClick={handleBuy}>
           Comprar
         </button>
