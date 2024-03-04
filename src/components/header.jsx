@@ -5,13 +5,13 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import TokenChange from "./tokenChange";
 import { useUserContext } from "../utils/userContext";
-import { Link } from "react-router-dom";
+import Navbar from "../utils/navbar";
+import LoginButton from "../utils/loginButton";
+import UserDropdown from "../utils/userDropdown";
 
 function Header() {
   const [userName, setUserName] = useState(false);
-  const [token, setToken] = useState(0);
-  const [redirect_uri, setRedirect_uri] = useState("");
-  const {user, updateUser} = useUserContext();
+  const { user, updateUser } = useUserContext();
 
   function sendToast() {
     toast.custom((t) => (
@@ -41,16 +41,21 @@ function Header() {
   useEffect(() => {
     if (localStorage.getItem("userName")) {
       setUserName(localStorage.getItem("userName"));
-      if(localStorage.getItem("userTokenChanged")){
-        apiCalls.getUserTokens(localStorage.getItem("userName")).then((data) => {
-          setToken(data.tokens);
-          updateUser({'userName':localStorage.getItem("userName"), 'userToken': localStorage.getItem("accessToken"),  'tokens': data.tokens});
-        });
+      if (localStorage.getItem("userTokenChanged")) {
+        apiCalls
+          .getUserTokens(localStorage.getItem("userName"))
+          .then((data) => {
+            updateUser({
+              userName: localStorage.getItem("userName"),
+              userToken: localStorage.getItem("accessToken"),
+              tokens: data.tokens,
+            });
+          });
         localStorage.setItem("userTokenChanged", false);
-        }
-         if (user.tokens !='' && user.tokens == 0) {
-           sendToast();
-          }
+      }
+      if (user.tokens != "" && user.tokens == 0) {
+        sendToast();
+      }
     } else {
       if (localStorage.getItem("accessToken")) {
         const userToken = localStorage.getItem("accessToken");
@@ -59,106 +64,51 @@ function Header() {
           localStorage.setItem("userName", data.login);
           localStorage.setItem("userToken", data.userToken);
           localStorage.setItem("userTokenChanged", true);
-          if(user.tokens == '' || user.tokens == 0){
-          apiCalls.getUserTokens(data.login).then((data) => {
-            setToken(data.tokens);
-            updateUser({'userName':data.login, 'userToken': userToken,  'tokens': data.tokens});
-          });
-          localStorage.setItem("userTokenChanged", false);
+          if (user.tokens == "" || user.tokens == 0) {
+            apiCalls.getUserTokens(data.login).then((data) => {
+              updateUser({
+                userName: data.login,
+                userToken: userToken,
+                tokens: data.tokens,
+              });
+            });
+            localStorage.setItem("userTokenChanged", false);
           }
         });
       }
     }
-  },[]);
-
-  const handleOnLogOut = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userName");
-    window.location.reload();
-  };
-
-  useEffect(() => {
-    const url = window.location.href;
-    if (url.includes("localhost")) {
-      setRedirect_uri("http://localhost:5173");
-    } else {
-      setRedirect_uri("https://point-games-web.vercel.app/");
-    }
   }, []);
-
-  const client_id = import.meta.env.VITE_WEB_CLIENT_ID;
 
   return (
     <header className="text-gray-400 bg-twitch-dark body-font text-center">
-      <div className="container  mx-auto flex justify-between p-5 flex-col md:flex-row items-center sm:flex-row">
-        <div className="flex w-1/3 items-center title-font gap-4 font-medium  text-white mb-4 md:mb-0  flex-row justify-start">
+      <div className="container  mx-auto flex justify-between p-5 md:flex-row  items-center max-sm:gap-4 max-sm:flex-row">
+        <div className="flex md:w-1/3 max-sm:w-1/2 items-center title-font gap-4 font-medium  text-white mb-4 md:mb-0  flex-row justify-start">
           <a>
             <img
               src={wolfito}
-              className="w-14 h-14 text-white p-2 bg-indigo-500 rounded-full"
+              className="w-14 h-14 -md:w-full text-white p-2 bg-indigo-500 rounded-full"
               alt="Edy icon"
             />
           </a>
           <span className=" text-xl">EdyConY</span>
         </div>
+        <div className="flex max-md:w-1/2 items-center title-font gap-4 font-medium xl:hidden text-white  mb-4 md:mb-0  flex-row justify-end">
 
-        <nav className="md:mx-auto w-1/3 flex flex-wrap gap-4 items-center text-base justify-center">
-          <Link to="/" className=" text-xl hover:text-white">
-            Juegos
-          </Link>
-          {userName ? (
-              <Link to="/tokenValidation" className=" text-xl hover:text-white">
-                Tokens
-              </Link>
-          ) : (
-            <></>
-          )}
-          {userName ? (
-              <Link to="/purchases" className=" text-xl hover:text-white">
-              Mis Compras
-            </Link>
-          ) : (
-            <></>
-          )}
-          <Link to="/transactions" className=" text-xl hover:text-white">
-            Transacciones
-          </Link>
+          <UserDropdown />
+        </div>
+        <nav className="md:mx-auto md:w-1/3 flex flex-wrap gap-4 items-center text-base justify-center max-xl:hidden">
+          <Navbar />
         </nav>
         {userName ? (
-          <div className="flex w-1/3 gap-4 justify-end items-center">
+          <div className="flex md:w-1/3 gap-4 justify-end items-center max-xl:hidden">
             <span className="flex text-white text-xl  font-bold">
               Bienvenido: <p className=" text-twitch-blue px-2"> {userName}</p>
             </span>
-            <span className="text-center ">
-              Tienes:{" "}
-              <p>
-                {token} token{token > 1 ? "s" : ""}{" "}
-              </p>
-            </span>
-            <a
-              onClick={handleOnLogOut}
-              className="content-center inline-block group bg-gray-800 rounded px-6 py-2.5 text-sm font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg hover:bg-gray-600   rounded text-base mt-4 md:mt-0 sm: mt-0">
-              Salir
-            </a>
+            <UserDropdown />
           </div>
         ) : (
-          <div className="w-1/3 flex justify-end">
-            <a
-              className="flex w-1/3 gap-2 justify-center content-center inline-block group bg-twitch-purple rounded px-6 py-2.5 text-sm font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg hover:bg-twitch-purple-dark  rounded text-base mt-4 md:mt-0 sm: mt-0"
-              href={`https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=user%3Aread%3Abroadcast`}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 translate-y-1"
-                fill="currentColor"
-                viewBox="0 0 24 24">
-                <path
-                  d="M2.149 0l-1.612 4.119v16.836h5.731v3.045h3.224l3.045-3.045h4.657l6.269-6.269v-14.686h-21.314zm19.164 13.612l-3.582 3.582h-5.731l-3.045 3.045v-3.045h-4.836v-15.045h17.194v11.463zm-3.582-7.343v6.262h-2.149v-6.262h2.149zm-5.731 0v6.262h-2.149v-6.262h2.149z"
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Login
-            </a>
+          <div className="md:w-1/3 flex md:justify-end -md:justify-center max-xl:hidden">
+            <LoginButton />
           </div>
         )}
       </div>

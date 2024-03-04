@@ -37,10 +37,10 @@ function Games() {
 
   return (
     <>
-      <section className="text-gray-400 bg-gray-900 body-font pb-8">
+      <section className="text-gray-400 bg-gray-900 body-font pb-8 max-md:pb-0">
         <div className="container flex flex-col justify-center px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-20">
-            <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2 text-white">
+            <h1 className="max-md:text-4xl text-3xl font-medium title-font mb-2 text-white">
               Lista De Juegos
             </h1>
           </div>
@@ -67,7 +67,7 @@ function Games() {
                       src={game.canjeado ? canjeado : game.img}
                     />
                     <p
-                      className={` px-4 py-2 font-bold -translate-y-44 text-white rounded-full absolute translate-x-2 w-fit ${
+                      className={` px-4 py-2 font-bold md:-translate-y-44 text-white rounded-full absolute translate-x-2 w-fit max-sm:-translate-y-40   ${
                         game.canjeado
                           ? "bg-twitch-pink"
                           : "bg-twitch-purple-dark"
@@ -91,6 +91,7 @@ function Games() {
                         target="_blank"
                         href={game.link}
                         title={game.nombre}
+                        data-testid="gameSteamLinkButton"
                         rel="noreferrer"
                         className={`flex justify-center mx-auto items-center rounded-full bg-gray-800 w-fit px-4 py-2 text-white ${
                           game.canjeado
@@ -108,7 +109,7 @@ function Games() {
               )}
             </div>
             <nav className="flex flex-wrap items-center justify-center mx-auto py-8 xl:w-2/3 sm:w-full  ">
-              <ul className="flex flex-wrap gap-2">
+              <ul className="flex flex-wrap md:gap-2">
                 <button
                   onClick={() => setPage(page - 1 < 1 ? page : page - 1)}
                   className="mx-1 px-3 py-2 bg-gray-800 text-white hover:bg-gray-600 rounded-md  max-sm:hidden">
@@ -138,7 +139,7 @@ function Games() {
           </div>
           {user.tokens > 0 ?
           <div
-            className={`w-1/2 justify-center mx-auto p-8 bg-twitch-pink shadow-lg rounded-full pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5`}>
+            className={`max-md:w-full w-1/2 justify-center mx-auto max-md:p-4 p-8 bg-twitch-pink shadow-lg rounded-full  max-md:rounded-2xl pointer-events-auto flex flex-col ring-1 ring-black ring-opacity-5`}>
             <TokenChange />
           </div> : <></>}
         </div>

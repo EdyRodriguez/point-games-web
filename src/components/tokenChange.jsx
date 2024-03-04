@@ -30,15 +30,16 @@ function TokenChange() {
     }
   };
   return (
-    <div className="flex flex-col gap-4 text-center text-white justify-center">
+    <div className="flex flex-col gap-4 text-center text-white justify-center ">
       <div>
-        <h1 className="sm:text-2xl text-3xl font-bold">
-          Hey, parece que tienes tokens? no quiere comprar??
+        <h1 className="max-md:text-lg text-2xl font-bold max-md:py-2">
+          Hey, parece que tienes tokens? no quieres comprar??
         </h1>
       </div>
       <div className="flex justify-around align-middle w-full  border-gray-200">
         <button
-          className="sm:text-medium w-1/2 self-center rounded-full bg-twitch-purple-dark py-4 px-6 mb-4 hover:bg-twitch-purple"
+          className="max-md:text-medium text-xl max-md:text-lg font-bold self-center rounded-full bg-twitch-purple-dark max-md:py-2 py-2 max-md:px-6 px-6 hover:bg-twitch-purple"
+          data-testid="tokenChangeButton"
           onClick={handleBuy}>
           Comprar
         </button>
