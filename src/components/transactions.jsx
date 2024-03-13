@@ -27,7 +27,7 @@ function Transactions() {
           {transactions.map((transaction, index) => {
             return (
               <tr className=" border-y-2 border-white max-md:text-sm" key={index}>
-                <td className="py-4">{transaction.usuario}</td>
+                <td className="py-4 ">{transaction.usuario}</td>
                 <td className="py-4">{transaction.tokens_restantes}</td>
                 <td className="py-4">{transaction.descripcion}</td>
                 <td className={`py-4 ${transaction.obtencion ? " text-green-500" : " text-red-500"}`}>{transaction.obtencion ? "+1 Token" : "-1 Token"}</td>
