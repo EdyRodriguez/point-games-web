@@ -19,10 +19,12 @@ function TokenValidation() {
       apiCalls.validateToken(token, userName).then((data) => {
         //logica para hacer saltar alerta si el token es valido o no
         if (data.message === "Tokens agregados con exito") {
-          toast.success("Successfully Added!");
+          toast.success("Token Agregado a tu Cuenta!! :3");
+          setTimeout(() => {
           localStorage.setItem("userTokenChanged", true);
           window.location.replace("/");
-          setInputText("");
+        }, 2000);
+        setInputText("");
         } else {
           toast.error("Error al validar el token");
           setInputText("");

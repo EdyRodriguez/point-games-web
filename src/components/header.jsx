@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import apiCalls from "../utils/apiCalls";
 import wolfito from "../assets/wolfito-removebg-preview.png";
-import { useState } from "react";
 import { toast } from "react-hot-toast";
 import TokenChange from "./tokenChange";
 import { useUserContext } from "../utils/userContext";
@@ -10,7 +9,6 @@ import LoginButton from "../utils/loginButton";
 import UserDropdown from "../utils/userDropdown";
 
 function Header() {
-  const [userName, setUserName] = useState(false);
   const { user, updateUser } = useUserContext();
 
   function sendToast() {
@@ -29,28 +27,42 @@ function Header() {
     ));
   }
 
+ async  function validateUserToken(userToken) {
+    await apiCalls.validateUser(userToken).then((data) => {
+      localStorage.setItem("userName", data.login);
+      localStorage.setItem("userToken", data.userToken);
+      localStorage.setItem("userTokenChanged", true);
+      if (user.tokens == "" || user.tokens == 0) {
+        userTokenChanged(data.login, data.userToken);
+      }
+    });
+    localStorage.setItem("userTokenChanged", false);
+  }
+
+  function userTokenChanged(dataUserName, dataUserToken) {
+    apiCalls.getUserTokens(dataUserName).then((data) => {
+      updateUser({
+        userName: dataUserName,
+        userToken: dataUserToken || localStorage.getItem("userToken"),
+        tokens: data.tokens,
+      });
+    });
+  }
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.hash);
     const token = urlParams.get("#access_token");
     if (token) {
       localStorage.setItem("accessToken", token);
+      validateUserToken(token);
       window.location.hash = "";
     }
   }, []);
 
   useEffect(() => {
     if (localStorage.getItem("userName")) {
-      setUserName(localStorage.getItem("userName"));
       if (localStorage.getItem("userTokenChanged")) {
-        apiCalls
-          .getUserTokens(localStorage.getItem("userName"))
-          .then((data) => {
-            updateUser({
-              userName: localStorage.getItem("userName"),
-              userToken: localStorage.getItem("accessToken"),
-              tokens: data.tokens,
-            });
-          });
+        userTokenChanged(localStorage.getItem("userName"));
         localStorage.setItem("userTokenChanged", false);
       }
       if (user.tokens != "" && user.tokens == 0) {
@@ -58,26 +70,13 @@ function Header() {
       }
     } else {
       if (localStorage.getItem("accessToken")) {
-        const userToken = localStorage.getItem("accessToken");
-        apiCalls.validateUser(userToken).then((data) => {
-          setUserName(data.login);
-          localStorage.setItem("userName", data.login);
-          localStorage.setItem("userToken", data.userToken);
-          localStorage.setItem("userTokenChanged", true);
-          if (user.tokens == "" || user.tokens == 0) {
-            apiCalls.getUserTokens(data.login).then((data) => {
-              updateUser({
-                userName: data.login,
-                userToken: userToken,
-                tokens: data.tokens,
-              });
-            });
-            localStorage.setItem("userTokenChanged", false);
-          }
-        });
+        let userToken = localStorage.getItem("accessToken");
+        validateUserToken(userToken);
       }
     }
   }, []);
+
+
 
   return (
     <header className="text-gray-400 bg-twitch-dark body-font text-center">
@@ -93,16 +92,15 @@ function Header() {
           <span className=" text-xl">EdyConY</span>
         </div>
         <div className="flex max-md:w-1/2 items-center title-font gap-4 font-medium xl:hidden text-white  mb-4 md:mb-0  flex-row justify-end">
-
           <UserDropdown />
         </div>
         <nav className="md:mx-auto md:w-1/3 flex flex-wrap gap-4 items-center text-base justify-center max-xl:hidden">
           <Navbar />
         </nav>
-        {userName ? (
+        {user.userName ? (
           <div className="flex md:w-1/3 gap-4 justify-end items-center max-xl:hidden">
             <span className="flex text-white text-xl  font-bold">
-              Bienvenido: <p className=" text-twitch-blue px-2"> {userName}</p>
+              Bienvenido: <p className=" text-twitch-blue px-2"> {user.userName}</p>
             </span>
             <UserDropdown />
           </div>
