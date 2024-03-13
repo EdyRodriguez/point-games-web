@@ -24,13 +24,13 @@ export default function UserDropdown() {
         onClick={() => setIsDropDownOpen(!isDropDownOpen)}
         className="flex items-center  focus:outline-none">
         <span className=" text-twitch-blue text-xl font-bold lg:hidden">
-          {user.userName ? (<><img
+          {user.userName == '' ? (<><img
             src="https://cdn.freelogovectors.net/wp-content/uploads/2023/05/phantom-logo-freelogovectors.net_.png"
             className="h-12 w-16 text-white rounded-full"
             alt={user.userName + " icon"}
           /></>) : (<><img
-            src={user.image || `https://cdn.freelogovectors.net/wp-content/uploads/2023/05/phantom-logo-freelogovectors.net_.png`}
-            className="h-12 w-16 text-white rounded-full"
+            src={user.userImage || `https://cdn.freelogovectors.net/wp-content/uploads/2023/05/phantom-logo-freelogovectors.net_.png`}
+            className="h-12 w-12 text-white rounded-full"
             alt={"default icon"}
           /></>)}
         </span>

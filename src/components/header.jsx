@@ -32,6 +32,7 @@ function Header() {
       localStorage.setItem("userName", data.login);
       localStorage.setItem("userToken", data.userToken);
       localStorage.setItem("userTokenChanged", true);
+      localStorage.setItem("userImage", data.profileImage);
       if (user.tokens == "" || user.tokens == 0) {
         userTokenChanged(data.login, data.userToken);
       }
@@ -45,6 +46,7 @@ function Header() {
         userName: dataUserName,
         userToken: dataUserToken || localStorage.getItem("userToken"),
         tokens: data.tokens,
+        userImage: localStorage.getItem("userImage"),
       });
     });
   }
@@ -64,6 +66,7 @@ function Header() {
       if (localStorage.getItem("userTokenChanged")) {
         userTokenChanged(localStorage.getItem("userName"));
         localStorage.setItem("userTokenChanged", false);
+
       }
       if (user.tokens != "" && user.tokens == 0) {
         sendToast();
