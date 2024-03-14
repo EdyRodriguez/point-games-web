@@ -1,6 +1,5 @@
 import axios from 'axios';
 const API_KEY = import.meta.env.VITE_API_KEY;
-const userToken = localStorage.getItem('userToken');
 function getGames() {
     return axios.get('https://point-games-api.vercel.app/games/getGames',{
         headers: {
@@ -79,7 +78,7 @@ function changeToken(usuario){
         headers: {
             'Content-Type': 'application/json',
             "apikey": API_KEY,
-            "Authorization": userToken
+            "Authorization":  localStorage.getItem('userToken')
         },
     })
     .then(response => {
@@ -92,7 +91,7 @@ function getUserGames(usuario){
         headers: {
             'Content-Type': 'application/json',
             "apikey": API_KEY,
-            "Authorization": userToken
+            "Authorization":  localStorage.getItem('userToken')
         }
     })
     .then(response => {
