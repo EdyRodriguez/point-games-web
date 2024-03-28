@@ -67,7 +67,7 @@ function Games() {
                       src={game.canjeado ? canjeado : game.img}
                     />
                     <p
-                      className={` px-4 py-2 font-bold -translate-y-40 lg: -translate-y-48 text-white rounded-full absolute translate-x-2 w-fit max-sm:-translate-y-40   ${
+                      className={` px-4 py-2 font-bold -translate-y-40 lg:-translate-y-44 text-white rounded-full absolute translate-x-2 w-fit max-sm:-translate-y-40   ${
                         game.canjeado
                           ? "bg-twitch-pink"
                           : "bg-twitch-purple-dark"
