@@ -22,8 +22,8 @@ export default function UserDropdown() {
         id="dropdownDefaultButton"
         data-testid="dropdownButton"
         onClick={() => setIsDropDownOpen(!isDropDownOpen)}
-        className="flex items-center  focus:outline-none">
-        <span className=" text-twitch-blue text-xl font-bold lg:hidden">
+        className="flex items-center  focus:outline-none lg:gap-4">
+        <span className=" text-twitch-blue text-xl font-bold xl:hidden">
           {user.userName == '' ? (<><img
             src="https://cdn.freelogovectors.net/wp-content/uploads/2023/05/phantom-logo-freelogovectors.net_.png"
             className="h-12 w-16 text-white rounded-full"
@@ -63,7 +63,7 @@ export default function UserDropdown() {
             </span>
           </>
         ) : (
-          <div className=' w-3/4 mx-auto pb-2'>
+          <div className=' w-full mx-auto flex justify-center p-2'>
             <LoginButton />
           </div>
         )}
